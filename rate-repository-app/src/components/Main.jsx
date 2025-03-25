@@ -1,9 +1,8 @@
-import { View } from 'react-native';
-import { Route, Routes, Navigate } from 'react-router-native';
-import RepositoryList from './RepositoryList';
-import AppBar from './AppBar';
-import SignIn from './SignIn';
-
+import { View } from 'react-native'
+import { Route, Routes, Navigate } from 'react-router-native'
+import RepositoryList from './RepositoryList'
+import AppBar from './AppBar'
+import SignIn from './SignIn'
 
 const Main = () => {
   return (
@@ -15,7 +14,6 @@ const Main = () => {
       <Route path="*" element={<Navigate to="/signin" />} />
       </Routes>
     </View>
-  );
-};
-
-export default Main;
+  )
+}
+export default Main

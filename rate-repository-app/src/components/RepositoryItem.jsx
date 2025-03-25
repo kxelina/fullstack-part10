@@ -1,5 +1,5 @@
-import { View, StyleSheet, Image } from 'react-native';
-import Text from './Text';
+import { View, StyleSheet, Image } from 'react-native'
+import Text from './Text'
 
 const styles = StyleSheet.create({
     separator: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         flex: 1
     }
 
-});
+})
 
 const numberStyle = (num) => {
     if (num < 1000) {
@@ -81,7 +81,7 @@ const Repositoryprop = ({ prop }) => {
         </View>
         <View style={styles.separator}></View>
         </View>
-    );
+    )
     }
 
-export default Repositoryprop;
+export default Repositoryprop

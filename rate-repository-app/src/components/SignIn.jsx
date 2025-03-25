@@ -1,7 +1,10 @@
-import { Pressable, View, TextInput, StyleSheet } from 'react-native';
-import { useFormik } from 'formik';
-import Text from './Text';
-import * as yup from 'yup';
+import { Pressable, View, TextInput, StyleSheet } from 'react-native'
+import { useFormik } from 'formik'
+import Text from './Text'
+import * as yup from 'yup'
+import useSignIn  from '../hooks/useSignIn'
+import { useNavigate } from 'react-router-native'
+
 
 const styles = StyleSheet.create({
   input: {
@@ -18,12 +21,12 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   }
-});
+})
 
 const initialValues = {
   username: '',
   password: '',
-};
+}
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -32,18 +35,32 @@ const validationSchema = yup.object().shape({
   password: yup
     .string()
     .required('Password is required'),
-});
+})
 
 const SignIn = () => {
+  const [signIn] = useSignIn()
+  const navigate = useNavigate()
+
+  const onSubmit = async (values) => {
+    const { username, password } = values
+    try {
+      const { data }= await signIn({ username, password })
+      console.log('data', data)
+      if (data.authenticate) {
+        navigate('/')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-   onSubmit: (values) => {
-    console.log(values);
-  }
+    onSubmit
 })
 
-console.log(formik.errors);
+console.log(formik.errors)
   
   return( 
   <View>
@@ -53,6 +70,7 @@ console.log(formik.errors);
       ]}
       placeholder='Username'
       onChangeText={formik.handleChange('username')}
+      onBlur={formik.handleBlur('username')}
       value={formik.values.username}
     />
     {formik.touched.username && formik.errors.username && (
@@ -65,6 +83,7 @@ console.log(formik.errors);
       placeholder='Password'
       onChangeText={formik.handleChange('password')}
       value={formik.values.password}
+      onBlur={formik.handleBlur('password')}
       secureTextEntry
     />
     {formik.touched.password && formik.errors.password && (
@@ -75,6 +94,6 @@ console.log(formik.errors);
     </Pressable>
   </View>
   )
-};
+}
 
-export default SignIn;
+export default SignIn
