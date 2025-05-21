@@ -5,7 +5,7 @@ const useRepositories = () => {
     const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
       fetchPolicy: 'cache-and-network'
     })
-    console.log('data', data)
+    console.log('data query', data)
     console.log('error', error)
   
     return { repositories: data?.repositories || null, loading, refetch, error }

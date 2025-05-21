@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Pressable, Linking } from 'react-native'
 import Text from './Text'
 
 const styles = StyleSheet.create({
@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     },
     stats: {
         flex: 1
+    },
+    button:{
+        backgroundColor: 'pink',
+        padding: 10,
+        marginTop: 10,
+        borderRadius: 5
     }
 
 })
@@ -50,38 +56,49 @@ const numberStyle = (num) => {
 }
 
 
-const Repositoryprop = ({ prop }) => {
+const Repositoryprop = ({ prop, showGit = false }) => {
+    const openGit = () => {
+        console.log('openGit', prop)
+    Linking.openURL(prop.url)
+  }
+
     return (
         <View>
-        <View style={styles.flexcontainer}>
+        <View testID="repositoryItem" style={styles.flexcontainer}>
             <Image source={{uri: prop.ownerAvatarUrl}} style={styles.picture} />
             <View style={styles.textcontainer}>
-            <Text fontWeight="bold" fontSize="subheading">{prop.fullName} </Text>
-            <Text>{prop.description}</Text>
-            <Text fontWeight="bold" style={styles.language}>{prop.language}</Text>
+            <Text testID= "fullName" fontWeight="bold" fontSize="subheading">{prop.fullName} </Text>
+            <Text testID="description">{prop.description}</Text>
+            <Text testID= "language" fontWeight="bold" style={styles.language}>{prop.language}</Text>
             <View style={styles.statscontainer}>
                 <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">{numberStyle(prop.stargazersCount)}</Text>
+                <Text testID="stargazersCount" fontWeight="bold" fontSize="subheading">{numberStyle(prop.stargazersCount)}</Text>
                 <Text>Stars</Text>
             </View>
             <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">{numberStyle(prop.forksCount)}</Text>
+                <Text testID="forksCount" fontWeight="bold" fontSize="subheading">{numberStyle(prop.forksCount)}</Text>
                 <Text>Forks</Text>
             </View>
             <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">{numberStyle(prop.reviewCount)}</Text>
+                <Text testID="reviewCount" fontWeight="bold" fontSize="subheading">{numberStyle(prop.reviewCount)}</Text>
                 <Text>Reviews</Text>
             </View>
             <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">{numberStyle(prop.ratingAverage)}</Text>
+                <Text testID= "ratingAverage" fontWeight="bold" fontSize="subheading">{numberStyle(prop.ratingAverage)}</Text>
                 <Text>Rating</Text>
             </View>
             </View>
+            {showGit && (
+            <Pressable onPress={openGit} style={styles.button}>
+                <Text fontWeight="bold" fontSize="subheading" style={{textAlign: 'center', color: 'white'}}>Open in GitHub</Text>
+            </Pressable>
+            )}
             </View>
         </View>
         <View style={styles.separator}></View>
         </View>
     )
-    }
+    
+}
 
 export default Repositoryprop
