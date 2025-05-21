@@ -28,7 +28,7 @@ const SingleRepositoryView = () => {
   : []
 
     if (loading) return <Text>Loading...</Text>
-    console.log('data repo', data)
+    //console.log('data repo', data)
 
   return (
     <FlatList
